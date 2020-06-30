@@ -1,0 +1,45 @@
+Configuration:
+  status: warn
+  name: YAMLConfiguration
+  properties:
+    property:
+      name: filename
+      value: target/evoToBetter-yaml.log
+  thresholdFilter:
+    level: debug
+  appenders:
+    Console:
+      name: STDOUT
+      target: SYSTEM_OUT
+      PatternLayout:
+        Pattern: "%d %p %c [%t] %m%n"
+    File:
+      name: File
+      filename: ${filename}
+      PatternLayout:
+        Pattern: "%d %p %c{10.} [%t] %m%n"
+      Filters:
+        ThresholdFilter:
+          level: info
+  Loggers:
+    logger:
+      -
+        name: evotobetter
+        level: debug
+        additivity: false
+#        ThreadContextMapFilter:
+#          KeyValuePair:
+#            key: test
+#            value: 123
+        AppenderRef:
+          ref: STDOUT
+      -
+        name: org.apache.logging.log4j.test2
+        level: debug
+        additivity: false
+        AppenderRef:
+          ref: File
+    Root:
+      level: error
+      AppenderRef:
+        ref: STDOUT
